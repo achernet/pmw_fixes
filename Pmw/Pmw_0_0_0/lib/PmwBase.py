@@ -123,7 +123,8 @@ def __methods(cls):
 # any other parameters.
 __stringBody = (
     'def %(method)s(this, *args, **kw): return ' +
-    'apply(this.%(attribute)s.%(method)s, args, kw)')
+    #'apply(this.%(attribute)s.%(method)s, args, kw)')
+    'this.%(attribute)s.%(method)s(*args, **kw)')
 
 # Get a unique id
 __counter = 0
@@ -138,7 +139,8 @@ def __unique():
 # by invoking the resolution function.
 __funcBody = (
     'def %(method)s(this, *args, **kw): return ' +
-    'apply(this.%(forwardFunc)s().%(method)s, args, kw)')
+    #'apply(this.%(forwardFunc)s().%(method)s, args, kw)')
+    'this.%(forwardFunc)s().%(method)s(*args, **kw)');
 
 def forwardmethods(fromClass, toClass, toPart, exclude = ()):
     # Forward all methods from one class to another.
@@ -718,8 +720,11 @@ class MegaArchetype:
                             '" for ' + self.__class__.__name__
 
         # Call the configure methods for any components.
-        map(apply, indirectOptions.keys(),
-                ((),) * len(indirectOptions), indirectOptions.values())
+        #apply has been deprecated since python 2.3
+        #map(apply, indirectOptions.keys(),
+        #        ((),) * len(indirectOptions), indirectOptions.values())
+        for func in indirectOptions.keys():
+            func(**indirectOptions[func])
 
         # Call the configuration callback function for each option.
         for option in directOptions:
@@ -729,7 +734,9 @@ class MegaArchetype:
               func()
 
     def __setitem__(self, key, value):
-        apply(self.configure, (), {key: value})
+        #apply has been deprecated since Python 2.3
+        #apply(self.configure, (), {key: value})
+        self.configure(*(), **{key: value})
 
     #======================================================================
     # Methods used to query the megawidget.
@@ -778,7 +785,6 @@ class MegaArchetype:
         # Get current configuration setting.
 
         # Return the value of an option, for example myWidget['font']. 
-
         if self._optionInfo.has_key(option):
             return self._optionInfo[option][_OPT_VALUE]
         else:
