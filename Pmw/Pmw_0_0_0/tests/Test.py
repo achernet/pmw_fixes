@@ -477,11 +477,9 @@ def _configureTest(w, testData):
 
 def _getErrorValue():
     exc_type, exc_value, exc_traceback = sys.exc_info()
-    if type(exc_type) == types.ClassType:
-	# Handle python 1.5 class exceptions.
-	exc_type = exc_type.__name__
+    exc_type = exc_type.__name__
     if type(exc_value) == types.StringType:
-	return exc_type + ': ' + exc_value
+        return exc_type + ': ' + exc_value
     else:
         exc_value_str = str(exc_value)
         if exc_value_str[:1] == "'" and exc_value_str[-1:] == "'":
