@@ -198,15 +198,16 @@ def _print_results(result, expected, description):
 			ok = (string.atof(result) == expected)
 		    except ValueError:
 			pass
-	    elif expected == callback:
-		ok = re.search('^[0-9]*callback$', str(result)) is not None
-	    elif expected == callback1:
-		ok = re.search('^[0-9]*callback1$', str(result)) is not None
-	    elif expected == callback2:
-		ok = re.search('^[0-9]*callback2$', str(result)) is not None
-	    elif expected == actioncallback:
-		ok = re.search('^[0-9]*actioncallback$',str(result)) is not None
-        
+            # new tkinter apparently applies L before callback...
+            elif expected == callback:
+                ok = re.search('^[0-9]*L?callback$', str(result)) is not None
+            elif expected == callback1:
+                ok = re.search('^[0-9]*L?callback1$', str(result)) is not None
+            elif expected == callback2:
+                ok = re.search('^[0-9]*L?callback2$', str(result)) is not None
+            elif expected == actioncallback:
+                ok = re.search('^[0-9]*L?actioncallback$', str(result)) is not None
+
     if not ok or _verbose > 0:
 	print '====', description
 	if not ok or _verbose > 1:
