@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/usr/bin/env python
 
 # This is a rough collection of tests that can not be automated.
 # To add a new test, create a function with name ending in '_test'.
