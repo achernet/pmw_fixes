@@ -30,9 +30,15 @@ class Group( Pmw.MegaWidget ):
     def __init__(self, parent = None, **kw):
 
         # Define the megawidget options.
+
+        #TODO rename collapsedsize to collapsedheight
+        #after adding collapsedwitdh (Pmw 1.3.3)
+        #will both stay in place for compatibility...
         INITOPT = Pmw.INITOPT
         optiondefs = (
             ('collapsedsize',    6,         INITOPT),
+            ('collapsedheight',  6,         INITOPT),
+            ('collapsedwidth',   20,        INITOPT),
             ('ring_borderwidth', 2,         None),
             ('ring_relief',      'groove',  None),
             ('tagindent',        10,        INITOPT),
@@ -103,11 +109,14 @@ class Group( Pmw.MegaWidget ):
 
     def collapse(self):
         self._groupChildSite.grid_forget()
+        #Tracker item 1096289
         if self._tag is None:
             tagHeight = 0
         else:
             tagHeight = self._tag.winfo_reqheight()
-        self._ring.configure(height=(tagHeight / 2) + self['collapsedsize'])
+            tagWidth = self._tag.winfo_reqwidth()
+        self._ring.configure(height=(tagHeight / 2) + self['collapsedheight'],
+                             width=tagWidth + self['collapsedwidth'])
 
     def interior(self):
         return self._groupChildSite
