@@ -59,13 +59,8 @@ class OptionMenu(Pmw.MegaWidget):
         self.initialiseoptions()
 
     def setitems(self, items, index = None):
-        
-        # python version check
-        # python versions >= 2.5.4 automatically clean commands
-        # and manually cleaning them causes errors when deleting items
-        
-        if sys.version_info[0] * 100 + sys.version_info[1] * 10 + \
-                        sys.version_info[2] < 254:
+        #cleaning up old items only required for Python < 2.5.4
+        if sys.version_info < (2, 5, 4):
             # Clean up old items and callback commands.
             for oldIndex in range(len(self._itemList)):
                 tclCommandName = str(self._menu.entrycget(oldIndex, 'command'))
