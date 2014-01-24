@@ -165,7 +165,7 @@ class ScrolledListBox(Pmw.MegaWidget):
     # Configuration methods.
 
     def _hscrollMode(self):
-        '''The horizontal scroll mode has been configured.'''
+        # The horizontal scroll mode has been configured.
 
         mode = self['hscrollmode']
 
@@ -185,7 +185,7 @@ class ScrolledListBox(Pmw.MegaWidget):
         self._configureScrollCommands()
 
     def _vscrollMode(self):
-        '''The vertical scroll mode has been configured.'''
+        # The vertical scroll mode has been configured.
 
         mode = self['vscrollmode']
 
@@ -249,18 +249,15 @@ class ScrolledListBox(Pmw.MegaWidget):
                 self._toggleVertScrollbar()
 
     def _scrollBothLater(self, first, last):
-        '''Called by the listbox to set the horizontal or vertical
-        scrollbar when it has scrolled or changed size or contents.
-        '''
+        # Called by the listbox to set the horizontal or vertical
+        # scrollbar when it has scrolled or changed size or contents.
 
         if self.scrollTimer is None:
             self.scrollTimer = self.after_idle(self._scrollBothNow)
 
     def _scrollBothNow(self):
-        '''This performs the function of _scrollXNow and _scrollYNow.
-        
-        If one is changed, the other should be updated to match.
-        '''
+        # This performs the function of _scrollXNow and _scrollYNow.
+        # If one is changed, the other should be updated to match.
         self.scrollTimer = None
 
         # Call update_idletasks to make sure that the containing frame
