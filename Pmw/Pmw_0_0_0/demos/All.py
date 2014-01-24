@@ -129,7 +129,7 @@ class Demo(Pmw.MegaWidget):
 	self.buttonBox.add('Trace', text = self._traceText,
 	        command = self.trace)
 	self.buttonBox.add('Code', text = 'Show code', command = self.showCode)
-	self.buttonBox.add('Exit', text = 'Exit', command = sys.exit)
+	self.buttonBox.add('Exit', text = 'Exit', command = root.destroy)
 	self.buttonBox.alignbuttons()
 
 	# Create the window to display the python code.
