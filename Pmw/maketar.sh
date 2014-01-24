@@ -14,7 +14,7 @@ VERSION=1.3.3
 DIR=`echo $VERSION | tr . _`
 
 # Date to put in documentation for the release date of this release
-VERSION_DATE="23 Sept 2007"
+VERSION_DATE=`date "+%d %b %Y"`
 
 #Base directory (on local PC):
 BASEDIR=`bash basedir.sh`
