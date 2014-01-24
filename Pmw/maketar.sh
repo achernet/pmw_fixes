@@ -14,7 +14,8 @@ VERSION=1.3.2
 VERSION_DATE="23 Sept 2007"
 
 #Base directory (on local PC):
-BASEDIR=/home/serge2/workspace/Pmw_CVS_1.3.2
+BASEDIR=`bash basedir.sh`
+
 
 # Location of Pmw source files (on local PC):
 SRC_DIR=Pmw_0_0_0
