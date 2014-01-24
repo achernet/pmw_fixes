@@ -1362,9 +1362,17 @@ text = """
 
   5 August 2007
 
-	- In module PmwBase.py: An explicit cast is now required from exception to string (str) .
+	- In module PmwBase.py: An explicit cast is now required from exception 
+      to string (str) .
 
   - Release of version 1.3
 
+  21 February 2010
+
+    - change bin/bundlepmw.py to use module re instead of regsub.
+
+  24 February 2010
+
+    - change /bin/env to /usr/bin/env in Tests/ManualTests.py
 
 """
