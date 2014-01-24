@@ -4,7 +4,7 @@ from distutils.core import setup
 
 
 setup(name="Pmw",
-      version='1.3.2',
+      version='1.3.3',
       description = 'Python Mega Widgets',
       author="Telstra Corporation Limited, Australia",
       author_email="",

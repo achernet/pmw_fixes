@@ -1,0 +1,21 @@
+1.3.4
+NOT APPLICABLE	- fix increment value/chunk to former version using // for division (PmwCounter.py) (if applies to Python 2 version)
+NOT APPLICABLE	- fix fmt back to "separator" - PmwEntryField.py,  421c424  (if applies to Python 2 version)
+DONE			- move configure outside if statement - PmwGroup.py, 110c123,126 (if applies to Python 2 version)
+NOT APPLICABLE	- fix public interface of PmwHistoryText.py - __next__ back to next() (if applies to Python 2 version)
+NOT APPLICABLE	- fix public interface of date functions to use 'format' kw (if works correctly) so as to respect the public interface (if applies to Python 2 version)
+NOT APPLICABLE	- fix bug in PmwTimeCounter (increment/decrement buttons do not work correctly) (if applies to Python 2 version)
+NOT APPLICABLE	- fix bug in PmwBase.py (_traceTkFile does not seem to exist) (if applies to Python 2 version)
+DONE			- fix crash when exiting demos/All.py with Balloon demo selected (PyEval_RestoreThread: NULL tstate) SOLUTION: Call root.destroy instead of sys.exit (original)
+DONE	- complete maketar.py
+DONE	- check BLT status/solutions
+DONE	- remove BLT tests from suite
+DONE	- remove BLT demos from suite
+DONE	- make BLT test run 
+	- add BLT functionality waiver
+DONE	- add BLT enable option - call Pmw.Blt.setBltDisable(window, False)
+
+1.3.5
+	- PyPi support
+	- update docsrc/text/bugs_text and changes_text
+	- update Pmw.announce
