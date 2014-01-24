@@ -49,7 +49,7 @@ if len(sys.argv) != 1:
 PMW_DIR = os.path.basename(os.path.dirname(os.getcwd()))[4:]
 VERSION = re.sub('_', '.', PMW_DIR)
 VERSION_DATE = string.strip(
-    time.strftime('%e %B %Y', time.localtime(time.time())))
+    time.strftime('%d %B %Y', time.localtime(time.time())))
 Pmw.setversion(VERSION)
 
 # Create _modules and _functions attributes.
@@ -373,7 +373,7 @@ def header(title = None, heading = None):
 
     return headerStr % locals()
 
-dateString = time.strftime('%e %b %Y', time.localtime(time.time()))
+dateString = time.strftime('%d %b %Y', time.localtime(time.time()))
 def trailer(noBack = 0, extra = ''):
     if noBack:
         back = ''
