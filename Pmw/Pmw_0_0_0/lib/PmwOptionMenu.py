@@ -71,8 +71,8 @@ class OptionMenu(Pmw.MegaWidget):
 
         # Set the items in the menu component.
         for item in items:
-            self._menu.add_command(label = item,
-            command = lambda self = self, item = item: self._invoke(item))
+            invoke_cmd = lambda self=self, item=item: self._invoke(item)
+            self._menu.add_command(label=item, command=invoke_cmd)
 
         # Set the currently selected value.
         if index is None:
