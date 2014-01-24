@@ -16,9 +16,17 @@ _tabsetCommand = '::blt::tabset'
 _haveBlt = None
 _haveBltBusy = None
 
+_forceBltDisable = True
+
+def setBltDisable(window, value):
+    global _forceBltDisable
+    _forceBltDisable = value
+    _checkForBlt(window)
+
 def _checkForBlt(window):
     global _haveBlt
     global _haveBltBusy
+    global _forceBltDisable
 
     # Blt may be a package which has not yet been loaded. Try to load it.
     try:
@@ -32,6 +40,9 @@ def _checkForBlt(window):
 
     _haveBlt= (window.tk.call('info', 'commands', _testCommand) != '')
     _haveBltBusy = (window.tk.call('info', 'commands', _busyCommand) != '')
+    #only force haveBlt, not Busy since Busy might work...
+    if (_forceBltDisable):
+        _haveBlt = False
 
 def haveblt(window):
     if _haveBlt is None:

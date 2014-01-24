@@ -100,6 +100,9 @@ def initialise():
 
 	_initialised = 1
 
+def enableBlt():
+    Pmw.Blt.setBltDisable(root, False)
+
 def haveBlt():
     return Pmw.Blt.haveblt(root)
 

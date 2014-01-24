@@ -353,4 +353,5 @@ if Test.haveBlt():
     testData = testData + ((c, ((tests, {}),)),)
 
 if __name__ == '__main__':
+    #Test.enableBlt()
     Test.runTests(testData)
