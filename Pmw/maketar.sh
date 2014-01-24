@@ -8,7 +8,10 @@
 
 
 # Version to be released
-VERSION=1.3.2
+VERSION=1.3.3
+
+#DIR is the directory name extension and is automatically generated
+DIR=`echo $VERSION | tr . _`
 
 # Date to put in documentation for the release date of this release
 VERSION_DATE="23 Sept 2007"
@@ -16,6 +19,9 @@ VERSION_DATE="23 Sept 2007"
 #Base directory (on local PC):
 BASEDIR=`bash basedir.sh`
 
+#Output directory where you want to find the .tar.gz files
+#assumed to exist
+OUTFILEDIR=$BASEDIR
 
 # Location of Pmw source files (on local PC):
 SRC_DIR=Pmw_0_0_0
@@ -23,11 +29,19 @@ SRC_DIR=Pmw_0_0_0
 ###-----------------------------------------------------
 
 
-
+STARTDIR=$PWD
 echo Using Pmw/${SRC_DIR} to create Pmw.${VERSION}.
+#remove older build directories
+if [ -e /tmp/Pmw ] 
+then
+	/bin/rm -rf /tmp/Pmw
+fi
 
-/bin/rm -rf /tmp/Pmw
-tar cf - ./Pmw | (cd /tmp; tar xf -)
+#remove older .tar.gz distro files
+rm /tmp/Pmw*.tar.gz
+
+# tar cf - ./Pmw | (cd /tmp; tar xf -)
+tar cf - ../Pmw | (cd /tmp; tar xf -)
 mv /tmp/Pmw/${SRC_DIR} /tmp/Pmw/TEMP
 /bin/rm -rf /tmp/Pmw/Pmw_*
 mv /tmp/Pmw/TEMP /tmp/Pmw/Pmw_${DIR}
@@ -72,10 +86,12 @@ echo ====== end ======
 cd /tmp/Pmw/Pmw_${DIR}
 
 # Create documentation source:
+echo -e "\n==============\n Creating documentation source"
 tar cf Pmw.${VERSION}.docsrc.tar ./docsrc
 gzip Pmw.${VERSION}.docsrc.tar
 mv Pmw.${VERSION}.docsrc.tar.gz /tmp
 
+echo -e "\n Creating manuals"
 /bin/rm -rf doc
 cd /tmp/Pmw/Pmw_${DIR}/docsrc
 ./createmanuals.py
@@ -105,7 +121,13 @@ tar cf Pmw.${VERSION}.tar ./src
 gzip Pmw.${VERSION}.tar
 
 # Now that the tar file has been created, unpack and run the tests.
+echo 'Testing unpacking...'
 /bin/rm -rf pmw.tmp
 mkdir pmw.tmp
 cd /tmp/pmw.tmp
 gzip -dc /tmp/Pmw.${VERSION}.tar.gz | tar xf -
+
+echo 'Copying output files'
+cd $STARTDIR
+cp /tmp/Pmw.${VERSION}.tar.gz $OUTFILEDIR
+cp /tmp/Pmw.${VERSION}.docsrc.tar.gz $OUTFILEDIR

@@ -3,7 +3,7 @@
 # Change these as required:
 
 # Version to be released
-VERSION=1.3.2
+VERSION=1.3.3
 
 # Date to put in documentation for the release date of this release
 VERSION_DATE="23 Sept 2007"
@@ -51,74 +51,70 @@ VERSION=${VERSION} SRC_DIR=${SRC_DIR} \
 # Make sure there are no unexpected files displayed by maketar.sh
 
 # Check tests, demos and documentation:
-cd /tmp/pmw.tmp/Pmw/Pmw_${DIR}/tests
-All.py
-cd /tmp/pmw.tmp/Pmw/Pmw_${DIR}/demos
-All.py
-mozilla /tmp/pmw.tmp/Pmw/Pmw_${DIR}/doc/index.html
+cd /tmp/Pmw/Pmw_${DIR}/tests
+#python All.py
+cd /tmp/Pmw/Pmw_${DIR}/demos
+#python All.py
+#firefox /tmp/Pmw/Pmw_${DIR}/doc/index.html
 
 # Also run tests and demos for older versions of python, eg:
-cd /tmp/pmw.tmp/Pmw/Pmw_${DIR}/tests
-python2.1 All.py
-cd /tmp/pmw.tmp/Pmw/Pmw_${DIR}/demos
-python2.1 All.py
+#cd /tmp/Pmw/Pmw_${DIR}/tests
+#python2.1 All.py
+#cd /tmp/Pmw/Pmw_${DIR}/demos
+#python2.1 All.py
 
 # Ftp distribution to incoming on SourceForge:
-cd /tmp
-ftp upload.sourceforge.net
-user: anonymous
-password: gregm@iname.com
-cd /incoming
-bin
+sftp adyh,pmw@frs.sourceforge.net
+cd /home/frs/project/pmw/Pmw
+mkdir Pmw.$VERSION
+cd Pmw.$VERSION
 put Pmw.$VERSION.tar.gz
-put Pmw.$VERSION.docsrc.tar.gz
-quit
 
 # Move distribution to Pmw download page via Pmw project page:
 # First login as administrator, then
-http://sourceforge.net/projects/pmw
--> Admin
--> Edit/Release Files
--> Add Release (for Package Name "Pmw")
-enter into "New release name" field: $VERSION
-click "Create This Release"
-paste top of docsrc/Pmw.announce into "Paste The Notes In:" box
-select "Preserve my pre-formatted text" box
-click on "Submit/Refresh"
-select Pmw.$VERSION.tar.gz
-select Pmw.$VERSION.docsrc.tar.gz
-click on "Add Files and/or Refresh View"
-for Pmw.$VERSION.tar.gz:
-    from "Processor" combobox select "Any"
-    from "File Type" combobox select ".gz"
-    click on "Update/Refresh"
-for Pmw.$VERSION.docsrc.tar.gz:
-    from "Processor" combobox select "Any"
-    from "File Type" combobox select ".gz"
-    click on "Update/Refresh"
-select "I'm sure" in Step 4
-click on "Send Notice"
+#http://sourceforge.net/projects/pmw
+#-> Admin
+#-> Edit/Release Files
+#-> Add Release (for Package Name "Pmw")
+#enter into "New release name" field: $VERSION
+#click "Create This Release"
+#paste top of docsrc/Pmw.announce into "Paste The Notes In:" box
+#select "Preserve my pre-formatted text" box
+#click on "Submit/Refresh"
+#select Pmw.$VERSION.tar.gz
+#select Pmw.$VERSION.docsrc.tar.gz
+#click on "Add Files and/or Refresh View"
+#for Pmw.$VERSION.tar.gz:
+#    from "Processor" combobox select "Any"
+#    from "File Type" combobox select ".gz"
+#    click on "Update/Refresh"
+#for Pmw.$VERSION.docsrc.tar.gz:
+#    from "Processor" combobox select "Any"
+#    from "File Type" combobox select ".gz"
+#    click on "Update/Refresh"
+#select "I'm sure" in Step 4
+#click on "Send Notice"
 
 # Copy home page to SourceForge
 cd ${BASEDIR}/Pmw/${SRC_DIR}/docsrc/text
-scp root_index.html gregm@shell.sourceforge.net:/home/groups/p/pm/pmw/htdocs
+scp root_index.html adyh@web.sourceforge.net:/home/project-web/pmw/htdocs
 
 # Copy all documentation to home page
 cd /tmp
-scp Pmw.$VERSION.tar.gz gregm@shell.sourceforge.net:/home/groups/p/pm/pmw/htdocs
+scp Pmw.$VERSION.tar.gz adyh@web.sourceforge.net:/home/project-web/pmw/htdocs
 
-ssh pmw.sourceforge.net
-  umask 002
-  # set VERSION as ABOVE
-  DIR=`echo ${VERSION} | tr . _`
-  cd /home/groups/p/pm/pmw/htdocs
-  gzip -dc Pmw.${VERSION}.tar.gz | tar xf - 
-  rm -rf doc
-  mv Pmw/Pmw_${DIR}/doc doc
-  rm -rf Pmw
-  rm -rf Pmw.${VERSION}.tar.gz
-  mv root_index.html index.html
-  exit
+#ssh pmw.sourceforge.net
+#  umask 002
+#  # set VERSION as ABOVE
+#  DIR=`echo ${VERSION} | tr . _`
+#  cd /home/groups/p/pm/pmw/htdocs
+#  gzip -dc Pmw.${VERSION}.tar.gz | tar xf - 
+#  rm -rf doc
+#  mv Pmw/Pmw_${DIR}/doc doc
+#  rm -rf Pmw
+#  rm -rf Pmw.${VERSION}.tar.gz
+#  mv root_index.html index.html
+#  exit
 
 # mozilla http://pmw.sourceforge.net/
 
